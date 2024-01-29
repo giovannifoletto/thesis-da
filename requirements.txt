@@ -1,0 +1,8 @@
+polars
+pandas
+numpy
+scikit-learn
+regex
+tqdm
+torch
+dvc

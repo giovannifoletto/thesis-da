@@ -1,0 +1,5 @@
+outs:
+- md5: 8f39789e4e2afab215a3287d6ee60c1c
+  size: 130795014
+  hash: md5
+  path: flaws_cloudtrail10.json

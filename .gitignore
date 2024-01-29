@@ -1,0 +1,12 @@
+# Python
+__pycache__/
+.ipynb_checkpoints
+
+# virtual env
+src/bin
+src/include
+src/share
+src/lib
+src/lib64
+
+# Data - excluded by dvc

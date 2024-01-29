@@ -1,0 +1,6 @@
+outs:
+- md5: 1275560f8f979aa489676f30755bca01.dir
+  size: 579975
+  nfiles: 6
+  hash: md5
+  path: vocabularies
