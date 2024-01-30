@@ -2,9 +2,9 @@
 import json
 
 FLAWS_CLOUDTRAILS_FILES = [
-    "../data/raw/flaws_cloudtrail00.json",
-    "../data/raw/flaws_cloudtrail02.json",
-    "../data/raw/flaws_cloudtrail03.json",
+    #"../data/raw/flaws_cloudtrail00.json",
+    #"../data/raw/flaws_cloudtrail02.json",
+    #"../data/raw/flaws_cloudtrail03.json",
     "../data/raw/flaws_cloudtrail04.json",
     "../data/raw/flaws_cloudtrail05.json",
     "../data/raw/flaws_cloudtrail06.json",
@@ -42,6 +42,23 @@ def untar_files():
     os.system("gzip -d ../data/raw/flaws_cloudtrail_logs/*")
     os.system("mv ../data/raw/flaws_cloudtrail_logs/* ../data/raw/")
 
+def save_data_to_ndjson():
+    import polars as pl
+    import gc
+    for i in FLAWS_CLOUDTRAILS_FILES:
+        records = []
+        print(i)
+        file_open = open(i, "r")
+        ##file_saver = open(f"i_cleaned.ndjson", "w")
+        line = file_open.readline()
+        jo = json.loads(line)
+        for ji in jo["Records"]:
+            records.append(ji) 
+        n_filename = i.split(".json")[0]
+        pl.DataFrame(records).write_ndjson(f"{n_filename}.ndjson")
+        file_open.close()
+        gc.collect()
+
 
 def import_data():
     records = []
@@ -56,4 +73,4 @@ def import_data():
         return records
     
 if __name__ == "__main__":
-    import_data()
+    save_data_to_ndjson()

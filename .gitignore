@@ -3,10 +3,11 @@ __pycache__/
 .ipynb_checkpoints
 
 # virtual env
-src/bin
-src/include
-src/share
-src/lib
-src/lib64
+bin/
+include/
+share/
+lib/
+lib64
+pyenv.cfg
 
 # Data - excluded by dvc
