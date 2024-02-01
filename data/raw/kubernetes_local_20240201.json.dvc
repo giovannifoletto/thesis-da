@@ -1,0 +1,5 @@
+outs:
+- md5: 10e2345d11d8dddc55efb1ea45879731
+  size: 27994107
+  hash: md5
+  path: kubernetes_local_20240201.json
