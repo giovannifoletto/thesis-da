@@ -1,0 +1,5 @@
+outs:
+- md5: 076bb40181fb24a860c02046d68c11fb
+  size: 110
+  hash: md5
+  path: all_vocabularies_riunited.csv
