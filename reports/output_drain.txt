@@ -1,0 +1,121 @@
+Line of the file: 100000
+Input (1): 3038ebd2-c98a-4c65-9b6e-e22506292313 the 811596193553 with [S3Console/0.4] in the s3.amazonaws.com have done ListBuckets
+Result: {"change_type": "cluster_created", "cluster_id": 1, "cluster_size": 1, "template_mined": "3038ebd2-c98a-4c65-9b6e-e22506292313 the 811596193553 with [S3Console/0.4] in the s3.amazonaws.com have done ListBuckets", "cluster_count": 1}
+Input (2): 22a0d9b1-deea-4d39-827b-2af7050ed3f3 the 811596193553 with console.amazonaws.com in the iam.amazonaws.com have done GetAccountPasswordPolicy
+Result: {"change_type": "cluster_template_changed", "cluster_id": 1, "cluster_size": 2, "template_mined": "<*> the 811596193553 with <*> in the <*> have done <*>", "cluster_count": 1}
+Input (13): 2dd9d57f-2734-49e4-a801-ab9a7fb21dd3 the 811596193553 with [AWSCloudTrail, aws-internal/3] in the s3.amazonaws.com have done ListBuckets
+Result: {"change_type": "cluster_created", "cluster_id": 2, "cluster_size": 1, "template_mined": "2dd9d57f-2734-49e4-a801-ab9a7fb21dd3 the 811596193553 with [AWSCloudTrail, aws-internal/3] in the s3.amazonaws.com have done ListBuckets", "cluster_count": 2}
+Input (14): 032db777-fcc7-4fdd-a916-c60e1050db97 the 811596193553 with AWSCloudTrail, aws-internal/3 in the sns.amazonaws.com have done ListTopics
+Result: {"change_type": "cluster_template_changed", "cluster_id": 2, "cluster_size": 2, "template_mined": "<*> the 811596193553 with <*> <*> in the <*> have done <*>", "cluster_count": 2}
+Input (378): 0dafc2f8-066b-4ebb-8d1c-fccd80a1f66e the 811596193553 with [aws-cli/1.11.47 Python/2.7.3 Linux/3.2.0-4-amd64 botocore/1.5.10] in the s3.amazonaws.com have done ListBuckets
+Result: {"change_type": "cluster_created", "cluster_id": 3, "cluster_size": 1, "template_mined": "0dafc2f8-066b-4ebb-8d1c-fccd80a1f66e the 811596193553 with [aws-cli/1.11.47 Python/2.7.3 Linux/3.2.0-4-amd64 botocore/1.5.10] in the s3.amazonaws.com have done ListBuckets", "cluster_count": 3}
+Input (379): d5f5a993-c85f-474d-afd8-403159a8e1a the 811596193553 with [aws-cli/1.11.47 Python/2.7.3 Linux/3.2.0-4-amd64 botocore/1.5.10] in the s3.amazonaws.com have done ListBuckets
+Result: {"change_type": "cluster_template_changed", "cluster_id": 3, "cluster_size": 2, "template_mined": "<*> the 811596193553 with [aws-cli/1.11.47 Python/2.7.3 Linux/3.2.0-4-amd64 botocore/1.5.10] in the s3.amazonaws.com have done ListBuckets", "cluster_count": 3}
+Input (850): d176df90-9df9-4991-9e1d-3da0d843df4f the 811596193553 with aws-cli/1.11.47 Python/2.7.3 Linux/3.2.0-4-amd64 botocore/1.5.10 in the ec2.amazonaws.com have done DescribeSnapshots
+Result: {"change_type": "cluster_template_changed", "cluster_id": 3, "cluster_size": 10, "template_mined": "<*> the 811596193553 with <*> Python/2.7.3 Linux/3.2.0-4-amd64 <*> in the <*> have done <*>", "cluster_count": 3}
+Input (1389): c5472feb-40d2-41c6-9c47-fb15aad0f326 the 811596193553 with Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36 in the signin.amazonaws.com have done ConsoleLogin
+Result: {"change_type": "cluster_created", "cluster_id": 4, "cluster_size": 1, "template_mined": "c5472feb-40d2-41c6-9c47-fb15aad0f326 the 811596193553 with Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36 in the signin.amazonaws.com have done ConsoleLogin", "cluster_count": 4}
+Input (1592): 4d7c0add-9e21-4ed9-8238-65055cb87b7c the 811596193553 with [Cyberduck/4.7 (459548).459548 (Windows 8/6.2) (x86)] in the s3.amazonaws.com have done GetBucketVersioning
+Result: {"change_type": "cluster_created", "cluster_id": 5, "cluster_size": 1, "template_mined": "4d7c0add-9e21-4ed9-8238-65055cb87b7c the 811596193553 with [Cyberduck/4.7 (459548).459548 (Windows 8/6.2) (x86)] in the s3.amazonaws.com have done GetBucketVersioning", "cluster_count": 5}
+Input (1593): 938c35d7-7093-44ca-a271-ee5d9759a83c the 811596193553 with [Cyberduck/4.7 (459548).459548 (Windows 8/6.2) (x86)] in the s3.amazonaws.com have done GetBucketVersioning
+Result: {"change_type": "cluster_template_changed", "cluster_id": 5, "cluster_size": 2, "template_mined": "<*> the 811596193553 with [Cyberduck/4.7 (459548).459548 (Windows 8/6.2) (x86)] in the s3.amazonaws.com have done GetBucketVersioning", "cluster_count": 5}
+Input (1594): 76dba1ba-2ff2-44f6-89b4-05814c0d432f the 811596193553 with [Cyberduck/4.7 (459548).459548 (Windows 8/6.2) (x86)] in the s3.amazonaws.com have done GetBucketAcl
+Result: {"change_type": "cluster_template_changed", "cluster_id": 5, "cluster_size": 3, "template_mined": "<*> the 811596193553 with [Cyberduck/4.7 (459548).459548 (Windows 8/6.2) (x86)] in the s3.amazonaws.com have done <*>", "cluster_count": 5}
+Input (1629): c64204-880c-40ea-98f4-d040e52cc2db the 811596193553 with Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36 in the signin.amazonaws.com have done ConsoleLogin
+Result: {"change_type": "cluster_template_changed", "cluster_id": 4, "cluster_size": 2, "template_mined": "<*> the 811596193553 with Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36 in the signin.amazonaws.com have done ConsoleLogin", "cluster_count": 5}
+Input (1848): 3e3107e0-db8b-48eb-9e1f-484214641efb the 811596193553 with Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36 in the lambda.amazonaws.com have done CreateFunction202224
+Result: {"change_type": "cluster_template_changed", "cluster_id": 4, "cluster_size": 3, "template_mined": "<*> the 811596193553 with Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36 in the <*> have done <*>", "cluster_count": 5}
+Input (3500): ae5dc1fd-b79e-4daa-b93d-de065be49ed2 the 811596193553 with [AWS Console Lambda, aws-internal/3] in the s3.amazonaws.com have done ListBuckets
+Result: {"change_type": "cluster_template_changed", "cluster_id": 3, "cluster_size": 46, "template_mined": "<*> the 811596193553 with <*> <*> <*> <*> in the <*> have done <*>", "cluster_count": 5}
+Input (6227): 03cae736-aee3-479a-8755-a85513bad3f the 811596193553 with [aws-cli/1.5.2 Python/2.7.8 Linux/4.9.0-1-amd64] in the s3.amazonaws.com have done ListBuckets
+Result: {"change_type": "cluster_created", "cluster_id": 6, "cluster_size": 1, "template_mined": "03cae736-aee3-479a-8755-a85513bad3f the 811596193553 with [aws-cli/1.5.2 Python/2.7.8 Linux/4.9.0-1-amd64] in the s3.amazonaws.com have done ListBuckets", "cluster_count": 6}
+Input (6230): 02ca19b9-49f5-440a-ae00-fb279d3085d3 the 811596193553 with [aws-cli/1.5.2 Python/2.7.8 Linux/4.9.0-1-amd64] in the s3.amazonaws.com have done ListBuckets
+Result: {"change_type": "cluster_template_changed", "cluster_id": 6, "cluster_size": 2, "template_mined": "<*> the 811596193553 with [aws-cli/1.5.2 Python/2.7.8 Linux/4.9.0-1-amd64] in the s3.amazonaws.com have done ListBuckets", "cluster_count": 6}
+Input (6237): af044305-5790-4542-9315-f061708ae4 the 811596193553 with aws-cli/1.5.2 Python/2.7.8 Linux/4.9.0-1-amd64 in the ec2.amazonaws.com have done DescribeInstances
+Result: {"change_type": "cluster_template_changed", "cluster_id": 6, "cluster_size": 3, "template_mined": "<*> the 811596193553 with <*> Python/2.7.8 <*> in the <*> have done <*>", "cluster_count": 6}
+Input (6396): 2c59cb82-9079-4be4-a2e3-c55fd375c437 the 811596193553 with [aws-cli/1.7.36 Python/2.7.11 Linux/4.4.0-34-generic] in the s3.amazonaws.com have done ListBuckets
+Result: {"change_type": "cluster_template_changed", "cluster_id": 6, "cluster_size": 12, "template_mined": "<*> the 811596193553 with <*> <*> <*> in the <*> have done <*>", "cluster_count": 6}
+Input (7544): f373eb6b-36c0-4b4e-802c-8614cfd966f0 the 811596193553 with Boto3/1.4.4 Python/2.7.13 Darwin/15.6.0 Botocore/1.5.14 Resource in the ec2.amazonaws.com have done DescribeInstances
+Result: {"change_type": "cluster_template_changed", "cluster_id": 5, "cluster_size": 38, "template_mined": "<*> the 811596193553 with <*> <*> <*> <*> <*> in the <*> have done <*>", "cluster_count": 6}
+Input (11821): 0aab84b2-390f-479e-b319-9b13eda2cb56 the 811596193553 with Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.88 Safari/537.36 in the sts.amazonaws.com have done GetSessionToken
+Result: {"change_type": "cluster_created", "cluster_id": 7, "cluster_size": 1, "template_mined": "0aab84b2-390f-479e-b319-9b13eda2cb56 the 811596193553 with Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.88 Safari/537.36 in the sts.amazonaws.com have done GetSessionToken", "cluster_count": 7}
+Input (13418): 0f0a79e7-2e09-4ae0-86a3-40ed32b7fdac the 811596193553 with Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.98 Safari/537.36 in the signin.amazonaws.com have done ConsoleLogin
+Result: {"change_type": "cluster_template_changed", "cluster_id": 4, "cluster_size": 33, "template_mined": "<*> the 811596193553 with Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) <*> Safari/537.36 in the <*> have done <*>", "cluster_count": 7}
+Input (16946): 772201fc0-5510-44cb-a389-5aaad3a41ba9 the 811596193553 with [AWSPowerShell/236.78.148.42 .NET_Runtime/4.0 .NET_Framework/4.0 OS/Microsoft_Windows_NT_10.0.41693.0  WindowsPowerShell/5.0 ClientSync] in the s3.amazonaws.com have done ListBuckets
+Result: {"change_type": "cluster_created", "cluster_id": 8, "cluster_size": 1, "template_mined": "772201fc0-5510-44cb-a389-5aaad3a41ba9 the 811596193553 with [AWSPowerShell/236.78.148.42 .NET_Runtime/4.0 .NET_Framework/4.0 OS/Microsoft_Windows_NT_10.0.41693.0 WindowsPowerShell/5.0 ClientSync] in the s3.amazonaws.com have done ListBuckets", "cluster_count": 8}
+Input (16947): e3608a13-0ee5-401e-9aae-6c98fd0c370e the 811596193553 with AWSPowerShell/236.78.148.42 .NET_Runtime/4.0 .NET_Framework/4.0 OS/Microsoft_Windows_NT_10.0.41693.0  WindowsPowerShell/5.0 ClientSync in the ec2.amazonaws.com have done DescribeSnapshots
+Result: {"change_type": "cluster_template_changed", "cluster_id": 8, "cluster_size": 2, "template_mined": "<*> the 811596193553 with <*> .NET_Runtime/4.0 .NET_Framework/4.0 OS/Microsoft_Windows_NT_10.0.41693.0 WindowsPowerShell/5.0 <*> in the <*> have done <*>", "cluster_count": 8}
+Input (20177): ed18ef8b-38ec-475a-9dd5-01adf14b45bb the 811596193553 with Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36 in the signin.amazonaws.com have done ConsoleLogin
+Result: {"change_type": "cluster_template_changed", "cluster_id": 7, "cluster_size": 2, "template_mined": "<*> the 811596193553 with Mozilla/5.0 (Macintosh; Intel Mac OS X <*> AppleWebKit/537.36 (KHTML, like Gecko) <*> Safari/537.36 in the <*> have done <*>", "cluster_count": 8}
+Input (20790): 41f5e92e-52f0-4c9b-9415-5e10fe0b9e07 the 811596193553 with [AWSPowerShell/228.181.46.250 .NET_Runtime/4.0 .NET_Framework/4.0 OS/Microsoft_Windows_NT_10.0.17369.0 WindowsPowerShell/5.0 ClientSync] in the s3.amazonaws.com have done ListBuckets
+Result: {"change_type": "cluster_template_changed", "cluster_id": 8, "cluster_size": 8, "template_mined": "<*> the 811596193553 with <*> .NET_Runtime/4.0 .NET_Framework/4.0 <*> WindowsPowerShell/5.0 <*> in the <*> have done <*>", "cluster_count": 8}
+Input (21406): 62289-612b-4d0b-9a58-2185a6d0b4b7 the 811596193553 with Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36 in the signin.amazonaws.com have done ConsoleLogin
+Result: {"change_type": "cluster_created", "cluster_id": 9, "cluster_size": 1, "template_mined": "62289-612b-4d0b-9a58-2185a6d0b4b7 the 811596193553 with Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36 in the signin.amazonaws.com have done ConsoleLogin", "cluster_count": 9}
+Input (23317): 70bd1d0a-07cb-4d3b-b982-5b54b46937c5 the 811596193553 with Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36 in the signin.amazonaws.com have done ConsoleLogin
+Result: {"change_type": "cluster_template_changed", "cluster_id": 9, "cluster_size": 2, "template_mined": "<*> the 811596193553 with Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36 in the signin.amazonaws.com have done ConsoleLogin", "cluster_count": 9}
+Input (53355): b828d6b5-0f97-45f3-9327-cc4fb76b872a the 811596193553 with Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36 in the signin.amazonaws.com have done ConsoleLogin
+Result: {"change_type": "cluster_template_changed", "cluster_id": 9, "cluster_size": 6, "template_mined": "<*> the 811596193553 with Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) <*> Safari/537.36 in the signin.amazonaws.com have done ConsoleLogin", "cluster_count": 9}
+Input (53709): 179d30b6-b2cc-4e6d-87c5-9ea1563c8e93 the 811596193553 with Mozilla/5.0 (X11; CrOS armv7l 9460.60.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.91 Safari/537.36 in the signin.amazonaws.com have done ConsoleLogin
+Result: {"change_type": "cluster_template_changed", "cluster_id": 4, "cluster_size": 39, "template_mined": "<*> the 811596193553 with Mozilla/5.0 <*> <*> <*> <*> AppleWebKit/537.36 (KHTML, like Gecko) <*> Safari/537.36 in the <*> have done <*>", "cluster_count": 9}
+Input (58039): 988620-a6bd-49a3-ae71-eec90c673a31 the 811596193553 with Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko in the signin.amazonaws.com have done CheckMfa
+Result: {"change_type": "cluster_created", "cluster_id": 10, "cluster_size": 1, "template_mined": "988620-a6bd-49a3-ae71-eec90c673a31 the 811596193553 with Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko in the signin.amazonaws.com have done CheckMfa", "cluster_count": 10}
+Input (62013): 003eaf7f-5c29-4603-bea0-0c30568b5 the 811596193553 with aws-sdk-go/1.10.18 (go1.8; darwin; amd64) APN/1.0 HashiCorp/1.0 Terraform/0.9.8 in the sts.amazonaws.com have done GetCallerIdentity
+Result: {"change_type": "cluster_created", "cluster_id": 11, "cluster_size": 1, "template_mined": "003eaf7f-5c29-4603-bea0-0c30568b5 the 811596193553 with aws-sdk-go/1.10.18 (go1.8; darwin; amd64) APN/1.0 HashiCorp/1.0 Terraform/0.9.8 in the sts.amazonaws.com have done GetCallerIdentity", "cluster_count": 11}
+Input (62014): e12b97fc-df69-4ed1-b659-188701e the 811596193553 with aws-sdk-go/1.10.18 (go1.8; darwin; amd64) APN/1.0 HashiCorp/1.0 Terraform/0.9.8 in the iam.amazonaws.com have done GetUser
+Result: {"change_type": "cluster_template_changed", "cluster_id": 11, "cluster_size": 2, "template_mined": "<*> the 811596193553 with aws-sdk-go/1.10.18 (go1.8; darwin; amd64) APN/1.0 HashiCorp/1.0 Terraform/0.9.8 in the <*> have done <*>", "cluster_count": 11}
+Input (62146): 9296ad23-e409-4226-ac72-055556b6a83b the 811596193553 with Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36 in the signin.amazonaws.com have done CheckMfa
+Result: {"change_type": "cluster_template_changed", "cluster_id": 9, "cluster_size": 7, "template_mined": "<*> the 811596193553 with Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) <*> Safari/537.36 in the signin.amazonaws.com have done <*>", "cluster_count": 11}
+Input (84993): e7524ecb-6dee-4d82-93d8-2ead6bfced4b the 811596193553 with aws-sdk-go/1.12.70 (go1.9.2; darwin; amd64) APN/1.0 HashiCorp/1.0 Terraform/0.11.2 in the sts.amazonaws.com have done GetCallerIdentity
+Result: {"change_type": "cluster_template_changed", "cluster_id": 11, "cluster_size": 24, "template_mined": "<*> the 811596193553 with <*> <*> darwin; amd64) APN/1.0 HashiCorp/1.0 <*> in the <*> have done <*>", "cluster_count": 11}
+Input (86086): 00e3129f-3d06-4167-9af7-5dc79891be2 the 811596193553 with Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.167 Safari/537.36 in the signin.amazonaws.com have done CheckMfa
+Result: {"change_type": "cluster_template_changed", "cluster_id": 9, "cluster_size": 9, "template_mined": "<*> the 811596193553 with Mozilla/5.0 (Windows NT <*> Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) <*> Safari/537.36 in the signin.amazonaws.com have done <*>", "cluster_count": 11}
+Input (90005): 94c89a1b-aa0c-4da5-ac56-dc173306fa7e0 the 811596193553 with Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/604.5.6 (KHTML, like Gecko) Version/11.0.3 Safari/604.5.6 in the signin.amazonaws.com have done CheckMfa
+Result: {"change_type": "cluster_template_changed", "cluster_id": 7, "cluster_size": 12, "template_mined": "<*> the 811596193553 with Mozilla/5.0 (Macintosh; Intel Mac OS X <*> <*> (KHTML, like Gecko) <*> <*> in the <*> have done <*>", "cluster_count": 11}
+Processing line: 100000, rate 40074.4 lines/sec, 11 clusters so far.
+--- Done processing file in 2.50 sec. Total of 100000 lines, rate 40067.9 lines/sec, 11 clusters
+ID=3     : size=62308     : <*> the 811596193553 with <*> <*> <*> <*> in the <*> have done <*>
+ID=1     : size=23504     : <*> the 811596193553 with <*> in the <*> have done <*>
+ID=6     : size=6758      : <*> the 811596193553 with <*> <*> <*> in the <*> have done <*>
+ID=5     : size=5776      : <*> the 811596193553 with <*> <*> <*> <*> <*> in the <*> have done <*>
+ID=2     : size=1518      : <*> the 811596193553 with <*> <*> in the <*> have done <*>
+ID=4     : size=42        : <*> the 811596193553 with Mozilla/5.0 <*> <*> <*> <*> AppleWebKit/537.36 (KHTML, like Gecko) <*> Safari/537.36 in the <*> have done <*>
+ID=11    : size=31        : <*> the 811596193553 with <*> <*> darwin; amd64) APN/1.0 HashiCorp/1.0 <*> in the <*> have done <*>
+ID=8     : size=28        : <*> the 811596193553 with <*> .NET_Runtime/4.0 .NET_Framework/4.0 <*> WindowsPowerShell/5.0 <*> in the <*> have done <*>
+ID=7     : size=23        : <*> the 811596193553 with Mozilla/5.0 (Macintosh; Intel Mac OS X <*> <*> (KHTML, like Gecko) <*> <*> in the <*> have done <*>
+ID=9     : size=11        : <*> the 811596193553 with Mozilla/5.0 (Windows NT <*> Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) <*> Safari/537.36 in the signin.amazonaws.com have done <*>
+ID=10    : size=1         : 988620-a6bd-49a3-ae71-eec90c673a31 the 811596193553 with Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko in the signin.amazonaws.com have done CheckMfa
+Prefix Tree:
+<root>
+	<L=11>
+		"<*>" (cluster_count=1)
+			ID=1     : size=23504     : <*> the 811596193553 with <*> in the <*> have done <*>
+	<L=12>
+		"<*>" (cluster_count=1)
+			ID=2     : size=1518      : <*> the 811596193553 with <*> <*> in the <*> have done <*>
+	<L=14>
+		"<*>" (cluster_count=1)
+			ID=3     : size=62308     : <*> the 811596193553 with <*> <*> <*> <*> in the <*> have done <*>
+	<L=21>
+		"<*>" (cluster_count=1)
+			ID=4     : size=42        : <*> the 811596193553 with Mozilla/5.0 <*> <*> <*> <*> AppleWebKit/537.36 (KHTML, like Gecko) <*> Safari/537.36 in the <*> have done <*>
+	<L=15>
+		"<*>" (cluster_count=1)
+			ID=5     : size=5776      : <*> the 811596193553 with <*> <*> <*> <*> <*> in the <*> have done <*>
+	<L=13>
+		"<*>" (cluster_count=1)
+			ID=6     : size=6758      : <*> the 811596193553 with <*> <*> <*> in the <*> have done <*>
+	<L=23>
+		"<*>" (cluster_count=1)
+			ID=7     : size=23        : <*> the 811596193553 with Mozilla/5.0 (Macintosh; Intel Mac OS X <*> <*> (KHTML, like Gecko) <*> <*> in the <*> have done <*>
+	<L=16>
+		"<*>" (cluster_count=1)
+			ID=8     : size=28        : <*> the 811596193553 with <*> .NET_Runtime/4.0 .NET_Framework/4.0 <*> WindowsPowerShell/5.0 <*> in the <*> have done <*>
+	<L=22>
+		"<*>" (cluster_count=1)
+			ID=9     : size=11        : <*> the 811596193553 with Mozilla/5.0 (Windows NT <*> Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) <*> Safari/537.36 in the signin.amazonaws.com have done <*>
+	<L=19>
+		"<*>" (cluster_count=1)
+			ID=10    : size=1         : 988620-a6bd-49a3-ae71-eec90c673a31 the 811596193553 with Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko in the signin.amazonaws.com have done CheckMfa
+	<L=17>
+		"<*>" (cluster_count=1)
+			ID=11    : size=31        : <*> the 811596193553 with <*> <*> darwin; amd64) APN/1.0 HashiCorp/1.0 <*> in the <*> have done <*>

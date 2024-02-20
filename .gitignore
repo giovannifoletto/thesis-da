@@ -9,5 +9,6 @@ share/
 lib/
 lib64
 pyenv.cfg
+etc/
 
 # Data - excluded by dvc

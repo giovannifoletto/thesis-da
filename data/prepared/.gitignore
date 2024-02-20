@@ -7,3 +7,7 @@
 /all_vocabularies_riunited.ndjson
 /dlp_to_plot.csv
 /dlp_to_plot_flaws02.csv
+/sim_search
+/kube_copy_hdfs.log
+/tokenized_data.csv
+/tokenized_data_dot_product.csv

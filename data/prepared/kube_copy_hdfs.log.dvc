@@ -1,0 +1,5 @@
+outs:
+- md5: 887d6dd2bb61010f28451004a35fd7eb
+  size: 18735246
+  hash: md5
+  path: kube_copy_hdfs.log

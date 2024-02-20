@@ -5,4 +5,10 @@ scikit-learn
 regex
 tqdm
 torch
+torchtext
 dvc
+dvc-gdrive
+ipykernel
+matplotlib
+seaborn
+notebook
