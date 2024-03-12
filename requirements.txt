@@ -12,3 +12,5 @@ ipykernel
 matplotlib
 seaborn
 notebook
+logparser3
+pyarrow
