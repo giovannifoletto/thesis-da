@@ -1,5 +1,0 @@
-outs:
-- md5: 4f0481c6be700ffc7610dbbf8cee5578
-  size: 251688960
-  hash: md5
-  path: flaws_cloudtrails_log.tar
