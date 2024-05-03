@@ -25,11 +25,6 @@ import torchtext as tt
 from torchtext.data.utils import get_tokenizer
 from torch.utils.data import Dataset
 
-import matplotlib.pyplot as plt
-import seaborn as sns
-
-import json
-
 from collections import Counter
 from copy import deepcopy as dc
 
@@ -39,7 +34,7 @@ df = pl.read_ndjson("../../data/raw/unificated.ndjson")
 df = df.select(SELECTED)
 df = df.fill_null(strategy="forward")
 
-df.head(2)
+print(df.head(2))
 
 # DO NOT RUN IT NOW, the initial parsing breaks if the datatime is converted now
 # Is more valueable to be run later

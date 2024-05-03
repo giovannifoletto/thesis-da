@@ -1,0 +1,5 @@
+outs:
+- md5: 846dcbe2863315cf74306737ddc65c7f
+  size: 1544582
+  hash: md5
+  path: unificated.ndjson_templates.csv

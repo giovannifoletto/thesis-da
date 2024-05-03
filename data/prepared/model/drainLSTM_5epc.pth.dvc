@@ -1,0 +1,5 @@
+outs:
+- md5: 0d40fa73ac43ff30a46e0f36eb7d1cb6
+  size: 207258
+  hash: md5
+  path: drainLSTM_5epc.pth

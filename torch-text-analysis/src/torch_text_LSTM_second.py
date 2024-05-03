@@ -233,15 +233,15 @@ plt.show()
 
 # == From LogDeep ==
 # Model
-options['input_size'] = 1
-options['hidden_size'] = 64
-options['num_layers'] = 2
-#This options tells that this is multivariate.
-options['num_classes'] = 28
+# options['input_size'] = 1
+# options['hidden_size'] = 64
+# options['num_layers'] = 2
+# #This options tells that this is multivariate.
+# options['num_classes'] = 28
 
-# Train
-options['batch_size'] = 2048
-options['accumulation_step'] = 1
+# # Train
+# options['batch_size'] = 2048
+# options['accumulation_step'] = 1
 
 # FROM LogDeep
 
@@ -268,7 +268,6 @@ class deeplog(nn.Module):
         out, _ = self.lstm(input0, (h0, c0))
         out = self.fc(out[:, -1, :])
         return out
-
 
 class loganomaly(nn.Module):
     def __init__(self, input_size, hidden_size, num_layers, num_keys):
@@ -352,7 +351,7 @@ class robustlog(nn.Module):
 # move data from SKLearn Scaler back to normal data
 test_predictions = model(X_test.to(device)).detach().cpu().numpy().flatten()
 
-dummies = np.zeros((X_test.shape[0], sliding_windows+1))
+dummies = np.zeros((X_test.shape[0], sw+1))
 dummies[:, 0] = test_predictions
 dummies = scaler.inverse_transform(dummies)
 
