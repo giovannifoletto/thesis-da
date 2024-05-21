@@ -1,0 +1,5 @@
+outs:
+- md5: 9076f33f72526ca0bd9056a878d5a3f2
+  size: 101450522
+  hash: md5
+  path: test4.log

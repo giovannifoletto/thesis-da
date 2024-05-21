@@ -1,0 +1,5 @@
+outs:
+- md5: df8a8f8bfdbf78ed6b4f0e2e668ab0d1
+  size: 24212142
+  hash: md5
+  path: results_transformers_line_by_line.res

@@ -1,0 +1,5 @@
+outs:
+- md5: 871818e1a8ce40e31ee871efb52a2c91
+  size: 8888140
+  hash: md5
+  path: results_transformers2.res

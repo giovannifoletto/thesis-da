@@ -10,5 +10,5 @@ lib/
 lib64
 pyenv.cfg
 etc/
-
+tmp/
 # Data - excluded by dvc
