@@ -33,3 +33,4 @@ The dataset are (quite) big, if you like to download only one of them, you can t
 
 To find the name of the dataset, you can use the `.dvc` files in the repo. The name of the resource are the same but without `.dvc` at the end.
 
+**ATTENTION**: If you are using the repo on a remote server, I suggest using the DVC VSCode plugin to handle the login procedure for you. There are no other ways.
