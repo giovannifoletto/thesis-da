@@ -4,22 +4,23 @@ import json
 
 classifier = pipeline("zero-shot-classification", model="facebook/bart-large-mnli")
 
-log_description = ["malicious", "benign"]
-openfile = open("../../data/raw/unificated.ndjson")
-lines = openfile.readlines()[:15000]
+# Result1: using ["malicious", "benign", "undecided"]
+# Result3: using ["malicious", "benign", "undecide"] => different dataset (matteo/luis)
+
+# LLM are not ok for this:
+# 1. time to execute analysis
+# 2. no correct solution about anomalies, but only semantically correlation.
+
+log_description = ["malicious", "benign", "undecided"]
+openfile = open("/home/rising/2024-06-21-random-luis-matteo.json")
+lines = openfile.readlines()
 
 #outputfile = open("./results_transformers_line_by_line.res", "w")
-outputfile = open("./results_transformers2.res", "a")
-
-log_description = ["malicious", "benign"]
+outputfile = open("../../data/prepared/zero_shot_classification/result_3_random_luis_matteo.txt", "a")
 for line in tqdm(lines):
-    #results = classifier(line, log_description)
-    results2 = classifier(line, log_description)
+    results = classifier(line, log_description)
 
-    # for label, score in zip(results["labels"], results["scores"]):
-    #     outputfile.write("\n")
-    # print(results)
-    outputfile.write(json.dumps(results2))
+    outputfile.write(json.dumps(results))
     outputfile.write("\n")
 
 openfile.close()
