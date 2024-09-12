@@ -1,0 +1,193 @@
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+import torch.optim as optim
+from torch.utils.data import Dataset, DataLoader
+from transformers import BertModel, BertTokenizer, AdamW
+
+from sklearn import preprocessing
+import numpy as np
+
+import json
+from tqdm import tqdm
+from copy import deepcopy as dc
+import datetime
+
+# Giovanni Foletto
+# First phase: finetuning with the labelled dataset
+# Second phase: few-shot classification
+
+DATASET_WITH_LABEL = "/home/rising/2024-06-21-category-1-sorted-cplabels.json"
+MAX_TOKEN_LEN = 128
+NUM_EPOCH_TRAIN = 300
+EVAL_DATASET = "/home/rising/2024-06-21-random-luis-matteo.json"
+
+class FineTuningDataset(Dataset):
+    def __init__(self, texts, labels, tokenizer, max_length):
+        self.texts = texts
+        self.labels = labels
+        self.tokenizer = tokenizer
+        self.max_length = max_length
+
+    def __len__(self):
+        return len(self.texts)
+
+    def __getitem__(self, idx):
+        text = self.texts[idx]
+        label = self.labels[idx]
+        encoding = self.tokenizer.encode_plus(
+            text,
+            add_special_tokens=True,
+            max_length=self.max_length,
+            return_token_type_ids=False,
+            padding='max_length',
+            return_attention_mask=True,
+            return_tensors='pt',
+            truncation=True
+        )
+        return {
+            'input_ids': encoding['input_ids'].flatten(),
+            'attention_mask': encoding['attention_mask'].flatten(),
+            'labels': torch.tensor(label, dtype=torch.long)
+        }
+
+class BERTFineTuner(nn.Module):
+    def __init__(self, bert_model_name='bert-base-uncased', num_labels=2):
+        super(BERTFineTuner, self).__init__()
+        self.bert = BertModel.from_pretrained(bert_model_name)
+        self.dropout = nn.Dropout(0.1)
+        self.fc = nn.Linear(self.bert.config.hidden_size, num_labels)
+
+    def forward(self, input_ids, attention_mask):
+        outputs = self.bert(input_ids=input_ids, attention_mask=attention_mask)
+        pooled_output = outputs.pooler_output
+        x = self.dropout(pooled_output)
+        logits = self.fc(x)
+        return logits
+
+# data elaboration to split json in text and label
+print("Importing datasets")
+texts = []
+labels = []
+
+# import dataset here
+with open(DATASET_WITH_LABEL) as text_file:
+    text_lines = text_file.readlines()
+    for line in tqdm(text_lines):
+        jo = json.loads(line)
+        text = dc(jo)
+        text.pop('label')
+        texts.append(json.dumps(text))
+        labels.append(jo['label'])
+
+tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
+max_length = MAX_TOKEN_LEN
+
+# Preprocessing on labels => normalize to finetune
+labels = np.array(labels).reshape(-1, 1)
+scaler = preprocessing.StandardScaler().fit(labels)
+labels = scaler.transform(labels)
+labels = labels.reshape(1, -1)[0]
+
+# Torch datasets creations
+dataset = FineTuningDataset(texts, labels, tokenizer, max_length)
+dataloader = DataLoader(dataset, batch_size=2, shuffle=True)
+
+# Initialize model, optimizer, and loss function
+model = BERTFineTuner()
+optimizer = AdamW(model.parameters(), lr=2e-5)
+criterion = nn.CrossEntropyLoss()
+
+# Train loop
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+model.to(device)
+
+epochs = NUM_EPOCH_TRAIN
+for epoch in tqdm(range(epochs)):
+    print(f"Traning epoch: {epoch}")
+    for batch in tqdm(dataloader):
+        input_ids = batch['input_ids'].to(device)
+        attention_mask = batch['attention_mask'].to(device)
+        labels = batch['labels'].to(device)
+
+        optimizer.zero_grad()
+        outputs = model(input_ids, attention_mask)
+        loss = criterion(outputs, labels)
+        loss.backward()
+        optimizer.step()
+
+    print(f'Epoch {epoch+1}/{epochs}, Loss: {loss.item()}')
+    # Saving intermediate step
+    torch.save(model.state_dict(), f'../results/model_weights_{epoch}.pth')
+    torch.save(model, f'../results/model_{epoch}.pth')
+    with open(f"../results/log_epoch_{epoch}.log") as logfile:
+        # log object
+        lo = {
+            "datetime": datetime.now(),
+            "loss": loss, 
+            "outputs": outputs,
+        }
+        json.dump(logfile, lo)
+        
+
+# ########################
+# end of Finetuning
+# ########################
+
+# ########################
+# Start Few-shot classification using Matching Networks
+# ########################
+
+class MatchingNetworkBERT(nn.Module):
+    def __init__(self, bert_model_name='bert-base-uncased', online=True):
+        super(MatchingNetworkBERT, self).__init__()
+        if online:
+            self.bert = BertModel.from_pretrained(bert_model_name)
+        else:
+            self.bert = torch.load(bert_model_name, weights_only=False)
+        # You can add more layers here if needed
+        self.fc = nn.Linear(self.bert.config.hidden_size, self.bert.config.hidden_size) 
+
+    def forward(self, support_set, query_set):
+        # Embed support set using BERT
+        support_embeddings = self.bert(**support_set).last_hidden_state[:, 0, :]  # Take the [CLS] token embedding
+        support_embeddings = F.relu(self.fc(support_embeddings)) 
+
+        # Embed query set using BERT
+        query_embeddings = self.bert(**query_set).last_hidden_state[:, 0, :]  # Take the [CLS] token embedding
+        query_embeddings = F.relu(self.fc(query_embeddings)) 
+
+        # Calculate similarity between query and support embeddings
+        similarity = torch.matmul(query_embeddings, support_embeddings.transpose(0, 1))
+
+        # Softmax to get probabilities
+        probabilities = F.softmax(similarity, dim=1)
+
+        return probabilities
+
+# no need to load the same thing again
+# tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
+
+# input the evaluation dataset and ask the model to associate to a finetuned label
+# (this is not entirely correct, but it can fair enought for now)
+support_texts = []
+with open(EVAL_DATASET) as ev_file:
+    support_text = ev_file.readlines()
+
+query_text = dc(labels)
+
+# Tokenize the input texts
+support_inputs = tokenizer(support_texts, return_tensors="pt", padding=True, truncation=True)
+query_inputs = tokenizer(query_text, return_tensors="pt", padding=True, truncation=True)
+
+# Create the model
+model = MatchingNetworkBERT(
+    bert_model_name="../results/model_299.pth",  # This should be changed with the "evaluated" best model not only with the last
+    online=False
+    )
+
+# Get the output
+output = model(support_inputs, query_inputs)
+print(output)
+
+# ??? don't know
