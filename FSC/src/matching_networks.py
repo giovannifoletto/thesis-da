@@ -114,7 +114,10 @@ for epoch in tqdm(range(epochs)):
         outputs = model(input_ids, attention_mask)
         print("Batch: ", batch)
         print("output: ", outputs)
-        loss = criterion(outputs, labels)
+        try:
+            loss = criterion(outputs, labels)
+        except:
+            continue
         print("Loss: ", loss)
         loss.backward()
         optimizer.step()
