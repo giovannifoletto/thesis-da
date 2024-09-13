@@ -19,7 +19,7 @@ import datetime
 
 DATASET_WITH_LABEL = "/home/rising/2024-06-21-category-1-sorted-cplabels.json"
 MAX_TOKEN_LEN = 128
-NUM_EPOCH_TRAIN = 300
+NUM_EPOCH_TRAIN = 5
 EVAL_DATASET = "/home/rising/2024-06-21-random-luis-matteo.json"
 
 class FineTuningDataset(Dataset):
@@ -112,7 +112,10 @@ for epoch in tqdm(range(epochs)):
 
         optimizer.zero_grad()
         outputs = model(input_ids, attention_mask)
+        print("Batch: ", batch)
+        print("output: ", outputs)
         loss = criterion(outputs, labels)
+        print("Loss: ", loss)
         loss.backward()
         optimizer.step()
 
