@@ -13,6 +13,8 @@ from tqdm import tqdm
 from copy import deepcopy as dc
 import datetime
 
+from IPython import embed
+
 # Giovanni Foletto
 # First phase: finetuning with the labelled dataset
 # Second phase: few-shot classification
@@ -34,7 +36,7 @@ class FineTuningDataset(Dataset):
 
     def __getitem__(self, idx):
         text = self.texts[idx]
-        label = self.labels[idx]
+        label = torch.tensor(self.labels[idx], dtype=torch.long)
         encoding = self.tokenizer.encode_plus(
             text,
             add_special_tokens=True,
@@ -45,10 +47,12 @@ class FineTuningDataset(Dataset):
             return_tensors='pt',
             truncation=True
         )
+
+        print(self.labels[idx])
         return {
             'input_ids': encoding['input_ids'].flatten(),
             'attention_mask': encoding['attention_mask'].flatten(),
-            'labels': torch.tensor(label, dtype=torch.long)
+            'labels': label
         }
 
 class BERTFineTuner(nn.Module):
@@ -60,9 +64,19 @@ class BERTFineTuner(nn.Module):
 
     def forward(self, input_ids, attention_mask):
         outputs = self.bert(input_ids=input_ids, attention_mask=attention_mask)
+
+        #print("BERT output:", outputs)
+
         pooled_output = outputs.pooler_output
+        
+
+        #print("Pooled output", pooled_output)
+        
         x = self.dropout(pooled_output)
+        #print("X: ", x)
+
         logits = self.fc(x)
+        #print("Logits:", logits)
         return logits
 
 # data elaboration to split json in text and label
@@ -83,11 +97,20 @@ with open(DATASET_WITH_LABEL) as text_file:
 tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
 max_length = MAX_TOKEN_LEN
 
+assert(len(texts) == len(labels))
+
 # Preprocessing on labels => normalize to finetune
-labels = np.array(labels).reshape(-1, 1)
-scaler = preprocessing.StandardScaler().fit(labels)
-labels = scaler.transform(labels)
-labels = labels.reshape(1, -1)[0]
+# labels = np.array(labels).reshape(-1, 1)
+# scaler = preprocessing.MinMaxScaler().fit(labels)
+# labels = scaler.transform(labels)
+# labels = labels.reshape(1, -1)[0]
+from sklearn.preprocessing import minmax_scale
+labels = minmax_scale(labels)
+
+#print(labels.shape)
+
+#embed()
+
 
 # Torch datasets creations
 dataset = FineTuningDataset(texts, labels, tokenizer, max_length)
@@ -112,13 +135,11 @@ for epoch in tqdm(range(epochs)):
 
         optimizer.zero_grad()
         outputs = model(input_ids, attention_mask)
-        print("Batch: ", batch)
-        print("output: ", outputs)
-        try:
-            loss = criterion(outputs, labels)
-        except:
-            continue
+        #print("Batch: ", batch)
+        #print("output: ", outputs)
+        loss = criterion(outputs, labels)
         print("Loss: ", loss)
+
         loss.backward()
         optimizer.step()
 
