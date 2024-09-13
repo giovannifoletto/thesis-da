@@ -147,7 +147,7 @@ for epoch in tqdm(range(epochs)):
     # Saving intermediate step
     torch.save(model.state_dict(), f'../results/model_weights_{epoch}.pth')
     torch.save(model, f'../results/model_{epoch}.pth')
-    with open(f"../results/log_epoch_{epoch}.log") as logfile:
+    with open(f"../results/log_epoch_{epoch}.log", "w") as logfile:
         # log object
         lo = {
             "datetime": datetime.now(),
