@@ -98,7 +98,7 @@ model = BERTFineTuner()
 optimizer = AdamW(model.parameters(), lr=2e-5)
 criterion = nn.CrossEntropyLoss()
 
-# Train loop
+# Train loopmatching_networks.py
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 model.to(device)
 
@@ -128,7 +128,6 @@ for epoch in tqdm(range(epochs)):
             "outputs": outputs,
         }
         json.dump(logfile, lo)
-        
 
 # ########################
 # end of Finetuning
@@ -174,7 +173,8 @@ support_texts = []
 with open(EVAL_DATASET) as ev_file:
     support_text = ev_file.readlines()
 
-query_text = dc(labels)
+# Setting Query text with only the available labels
+query_text = dc(set(labels))
 
 # Tokenize the input texts
 support_inputs = tokenizer(support_texts, return_tensors="pt", padding=True, truncation=True)
@@ -190,4 +190,22 @@ model = MatchingNetworkBERT(
 output = model(support_inputs, query_inputs)
 print(output)
 
-# ??? don't know
+# This output will be the statistical representation of what the model thinks is the better label
+# to assign the log.
+
+# - Target 5 is out of bound (too big)
+
+# Evaluation is done wrong:
+
+# 1. divide the labels dataset in 2 parts (70/30)
+# 2. use the first 70% to train and finetune (check if this is randomized)
+# 3. use the second part for evaluation (this will be not as good since it is evaluated on already trained data)
+# 4. import the new dataset and evaluate with that 
+#       PROBLEM: with this new DS there is a method in which I can understand if it correct or not? How?
+
+# Other problems:
+# - no recover possibilities (if the script die, we have to restart. BUT: the model is saved each iteration?)
+#       PROBLEM: is saved correctly? Other information that could be useful in the log
+# - the log in this phase are directly truncate (without even adding the closing })
+#       PROBLEM: resolve that, is not coherent with the presented solution possibilities
+# - we need more flexibility to run this model => create a CLI would be better.
