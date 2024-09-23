@@ -35,5 +35,26 @@ def fsclass(labels, texts):
         lines = ofile.readlines()
 
         for line in lines:
-            output = model(line)
+
+            encoding = tokenizer.encode_plus(
+                line,
+                add_special_tokens=True,
+                max_length=max_length,
+
+                return_token_type_ids=False,
+                padding='max_length',
+                truncation=True,
+
+                return_attention_mask=True,
+                return_tensors='pt', # return pytorch tensors
+            )
+
+            input_ids = {
+                'input_ids': encoding['input_ids'].flatten(),
+                'attention_mask': encoding['attention_mask'].flatten(),
+                'labels': "[MASK]"
+            }
+
+
+            output = model(input_ids)
             print(output)
