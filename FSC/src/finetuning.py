@@ -5,10 +5,8 @@ from torch.optim import AdamW
 from torch.utils.data import Dataset, DataLoader
 from transformers import BertForSequenceClassification, get_linear_schedule_with_warmup, DistilBertTokenizerFast, AutoTokenizer
 
-from sklearn.preprocessing import minmax_scale
 import numpy as np
 
-import json
 from tqdm import tqdm
 from copy import deepcopy as dc
 import datetime, time
@@ -18,7 +16,7 @@ import os
 
 from IPython import embed
 
-from models import FineTuningDataset, BERTFineTuner, MatchingNetworkBERT
+from models import FineTuningDataset
 from config import *
 
 # Authors recommends
@@ -153,7 +151,7 @@ def finetune(labels, texts):
         model.train()
 
         # For each batch of training data...
-        for step, batch in tqdm(enumerate(train_dl)):
+        for step, batch in enumerate(train_dl):
 
             # Progress update every 10 batches.
             if step % 40 == 0 and not step == 0:
@@ -237,11 +235,6 @@ def finetune(labels, texts):
         output_dir = OUTPUT_DIR
         if not os.path.exists(output_dir):
             os.makedirs(output_dir)
-
-        print(f"Saving model to {output_dir}")
-        model_to_save = model.module if hasattr(model, 'module') else model  # Take care of distributed/parallel training
-        model_to_save.save_pretrained(output_dir)
-        tokenizer.save_pretrained(output_dir)
 
         # ========================================
         #               Validation
@@ -338,7 +331,10 @@ def finetune(labels, texts):
     print("Total training took {:} (h:mm:ss)".format(format_time(time.time()-total_t0)))
 
     print("Saving pretrained")
-    model.save_pretrained("../results/model_pretrained_FSC")
+    print(f"Saving model to {output_dir}")
+    model_to_save = model.module if hasattr(model, 'module') else model  # Take care of distributed/parallel training
+    model_to_save.save_pretrained(output_dir)
+    tokenizer.save_pretrained(output_dir)
 
 # Function to calculate the accuracy of our predictions vs labels
 def flat_accuracy(preds, labels):

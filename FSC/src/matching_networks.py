@@ -1,5 +1,4 @@
 from sklearn.preprocessing import minmax_scale
-import numpy as np
 
 import json
 from tqdm import tqdm
