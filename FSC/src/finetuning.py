@@ -134,9 +134,9 @@ def finetune(labels, texts):
 
         # Perform one full pass over the training set.
 
-        print("")
-        print('======== Epoch {:} / {:} ========'.format(epoch_i + 1, epochs))
-        print('Training...')
+        # print("")
+        # print('======== Epoch {:} / {:} ========'.format(epoch_i + 1, epochs))
+        # print('Training...')
 
         # Measure how long the training epoch takes.
         t0 = time.time()
@@ -200,10 +200,7 @@ def finetune(labels, texts):
             )
 
             # Accumulate the training loss over all of the batches so that we can
-            # calculate the average loss at the end. `loss` is a Tensor containing a
-            # single value; the `.item()` function just returns the Python value 
-            # from the tensor.
-            print("Loss", output.loss)
+            # calculate the average loss at the end.
             total_train_loss += output.loss
 
             # Perform a backward pass to calculate the gradients.
@@ -231,10 +228,6 @@ def finetune(labels, texts):
         print("  Average training loss: {0:.2f}".format(avg_train_loss))
         print("  Training epcoh took: {:}".format(training_time))
 
-        print("Saving model results: ")
-        output_dir = OUTPUT_DIR
-        if not os.path.exists(output_dir):
-            os.makedirs(output_dir)
 
         # ========================================
         #               Validation
@@ -330,7 +323,10 @@ def finetune(labels, texts):
 
     print("Total training took {:} (h:mm:ss)".format(format_time(time.time()-total_t0)))
 
-    print("Saving pretrained")
+    print("Saving model results: ")
+    output_dir = OUTPUT_DIR
+    if not os.path.exists(output_dir):
+        os.makedirs(output_dir)
     print(f"Saving model to {output_dir}")
     model_to_save = model.module if hasattr(model, 'module') else model  # Take care of distributed/parallel training
     model_to_save.save_pretrained(output_dir)
