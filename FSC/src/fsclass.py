@@ -56,5 +56,5 @@ def fsclass(labels, texts):
             }
 
 
-            output = model(input_ids)
+            output = model(input_ids["input_ids"])
             print(output)

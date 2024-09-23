@@ -35,7 +35,7 @@ assert(len(texts) == len(labels))
 # Preprocessing on labels => normalize to finetune
 labels = minmax_scale(labels)
 
-finetune(labels, texts)
+#finetune(labels, texts)
 fsclass(labels, texts)
 
 
