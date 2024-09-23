@@ -153,10 +153,10 @@ def finetune(labels, texts):
         model.train()
 
         # For each batch of training data...
-        for step, batch in enumerate(train_dl):
+        for step, batch in tqdm(enumerate(train_dl)):
 
             # Progress update every 10 batches.
-            if step % 10 == 0 and not step == 0:
+            if step % 40 == 0 and not step == 0:
                 # Calculate elapsed time in minutes.
                 elapsed = format_time(time.time() - t0)
 
@@ -275,9 +275,9 @@ def finetune(labels, texts):
             #   [0]: input ids 
             #   [1]: attention masks
             #   [2]: labels 
-            b_input_ids = batch[0].to(device)
-            b_input_mask = batch[1].to(device)
-            b_labels = batch[2].to(device)
+            b_input_ids = batch["input_ids"].to(device)
+            b_input_mask = batch["attention_mask"].to(device)
+            b_labels = batch["labels"].to(device)
 
             # Tell pytorch not to bother with constructing the compute graph during
             # the forward pass, since this is only needed for backprop (training).
