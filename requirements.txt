@@ -5,7 +5,6 @@ scikit-learn
 regex
 tqdm
 torch
-torchtext
 dvc
 dvc-gdrive
 ipykernel
@@ -14,4 +13,4 @@ seaborn
 notebook
 logparser3
 pyarrow
-lightningt
+transformers
