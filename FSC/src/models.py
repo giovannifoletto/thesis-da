@@ -87,24 +87,31 @@ class MatchingNetworkBERT(nn.Module):
         self.fc = nn.Linear(self.bert.config.hidden_size, self.bert.config.hidden_size) 
         self.softmax = nn.Softmax(dim=1)
 
-    def forward(self, support_set, query_set):
+    def forward(self, support_set, query_set, device):
         # Embed support set using BERT
         support_embeddings_output = self.bert(**support_set).hidden_states[-1][:, 0, :]  # Take the [CLS] token embedding
         support_embeddings = F.relu(self.fc(support_embeddings_output))
 
         sim_vec = []
+        len_sim = len(query_set)
+        counter = 0
         # Embed query set using BERT
         for query_set_el in query_set:
+            query_set_el.to(device)
             query_embeddings_output = self.bert(**query_set_el).hidden_states[-1][:, 0, :]  # Take the [CLS] token embedding
             query_embeddings = F.relu(self.fc(query_embeddings_output)) 
 
             # Calculate similarity between query and support embeddings
             similarity = torch.matmul(query_embeddings, support_embeddings.transpose(0, 1))
             sim_vec.append(similarity)
- 
-        sim_vec_tensor = torch.tensor([sim_vec])
+
+            if counter % 10 == 0 and counter != 0:
+                print(f"Working on {counter}/{len_sim}")
+
+            counter += 1
+
+        sim_vec_tensor = torch.tensor([sim_vec]).to(device)
         probabilities = self.softmax(sim_vec_tensor)
-        print(probabilities)      
 
         return probabilities
 

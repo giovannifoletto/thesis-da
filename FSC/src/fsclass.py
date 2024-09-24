@@ -29,7 +29,6 @@ def fsclass(labels, texts):
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     model.to(device)
 
-
     # this is wrong
     print("Import vocabulary")
     support_texts = []
@@ -48,13 +47,22 @@ def fsclass(labels, texts):
         t_query_text = tokenizer(text, return_tensors="pt", padding=True, truncation=True)
         support_texts.append(t_query_text)
 
+    print(f"Vocabulary len: {len(query_text)}")
+
     print("Tranforming each line of the file in something compatible with our model.")
+
+    outputs = []
     with open(CROSS_EVAL_DATASET) as ofile:
         lines = ofile.readlines()
 
         for line in tqdm(lines):
 
             support_inputs = tokenizer(line, return_tensors="pt", padding=True, truncation=True)
+            support_inputs.to(device)
 
-            output = model(support_inputs, support_texts)
+            output = model(support_inputs, support_texts, device)
+            outputs.append(output)
+
             print(output)
+    
+
