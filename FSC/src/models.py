@@ -3,9 +3,11 @@ import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
 from torch.utils.data import Dataset, DataLoader
-from transformers import BertModel, TFDistilBertModel, DistilBertConfig, BertForSequenceClassification
+from transformers import DistilBertConfig, BertForSequenceClassification
 
 from config import *
+
+from IPython import embed
  
 # Configure DistilBERT's initialization
 BertConfig = DistilBertConfig(
@@ -73,29 +75,34 @@ class BERTFineTuner(nn.Module):
     
 
 class MatchingNetworkBERT(nn.Module):
-    def __init__(self, bert_model_name=BERT_MODEL_NAME, online=True):
+    def __init__(self, bert_model_name=BERT_MODEL_NAME):
         super(MatchingNetworkBERT, self).__init__()
-        if online:
-            self.bert = TFDistilBertModel.from_pretrained(bert_model_name)
-        else:
-            self.bert = torch.load(bert_model_name, weights_only=False)
+        
+        self.bert = BertForSequenceClassification.from_pretrained(
+            bert_model_name,
+            output_hidden_states=True
+        )
         # You can add more layers here if needed
         self.fc = nn.Linear(self.bert.config.hidden_size, self.bert.config.hidden_size) 
 
     def forward(self, support_set, query_set):
         # Embed support set using BERT
-        support_embeddings = self.bert(**support_set).last_hidden_state[:, 0, :]  # Take the [CLS] token embedding
-        support_embeddings = F.relu(self.fc(support_embeddings)) 
+        support_embeddings_output = self.bert(**support_set).hidden_states[-1][:, 0, :]  # Take the [CLS] token embedding
+        support_embeddings = F.relu(self.fc(support_embeddings_output))
 
+        sim_vec = []
         # Embed query set using BERT
-        query_embeddings = self.bert(**query_set).last_hidden_state[:, 0, :]  # Take the [CLS] token embedding
-        query_embeddings = F.relu(self.fc(query_embeddings)) 
+        for query_set_el in query_set:
+            query_embeddings_output = self.bert(**query_set_el).hidden_states[-1][:, 0, :]  # Take the [CLS] token embedding
+            query_embeddings = F.relu(self.fc(query_embeddings_output)) 
 
-        # Calculate similarity between query and support embeddings
-        similarity = torch.matmul(query_embeddings, support_embeddings.transpose(0, 1))
-
-        # Softmax to get probabilities
-        probabilities = F.softmax(similarity, dim=1)
+            # Calculate similarity between query and support embeddings
+            similarity = torch.matmul(query_embeddings, support_embeddings.transpose(0, 1))
+            sim_vec.append(similarity)
+            print(similarity)
+            # Softmax to get probabilities
+            probabilities = F.softmax(similarity, dim=len(sim_vec))
+            print(probabilities)
 
         return probabilities
 

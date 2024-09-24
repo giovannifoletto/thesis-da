@@ -12,7 +12,7 @@ from fsclass import fsclass
 # Giovanni Foletto
 # First phase: finetuning with the labeled dataset
 # Second phase: few-shot classification
-    
+
 # data elaboration to split json in text and label
 print("Importing datasets")
 texts = []
@@ -47,7 +47,7 @@ fsclass(labels, texts)
 # 1. divide the labels dataset in 2 parts (70/30)
 # 2. use the first 70% to train and finetune (check if this is randomized)
 # 3. use the second part for evaluation (this will be not as good since it is evaluated on already trained data)
-# 4. import the new dataset and evaluate with that 
+# 4. import the new dataset and evaluate with that
 #       PROBLEM: with this new DS there is a method in which I can understand if it correct or not? How?
 
 # Other problems:
