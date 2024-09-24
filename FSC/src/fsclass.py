@@ -3,6 +3,7 @@ from transformers import AutoTokenizer, BertForSequenceClassification
 
 from sklearn.preprocessing import minmax_scale
 import numpy as np
+import polars as pl
 
 from tqdm import tqdm
 from copy import deepcopy as dc
@@ -28,10 +29,21 @@ def fsclass(labels, texts):
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     model.to(device)
 
-    support_texts = []
 
-    print("Transforming query_set inside something usable.")
-    query_text = dc(list(set(texts)))
+    # this is wrong
+    print("Import vocabulary")
+    support_texts = []
+    query_labels = dc(list(set(labels)))
+    query_text = []
+    for ql in tqdm(query_labels):
+        idx = np.where(labels == ql)[0]
+        if len(idx) > 0:
+            idx = idx[0].item()
+        else:
+            idx.item()
+        query_text.append(texts[idx])
+
+    print("Tokenize vocabulary")
     for text in tqdm(query_text):
         t_query_text = tokenizer(text, return_tensors="pt", padding=True, truncation=True)
         support_texts.append(t_query_text)
@@ -43,12 +55,6 @@ def fsclass(labels, texts):
         for line in tqdm(lines):
 
             support_inputs = tokenizer(line, return_tensors="pt", padding=True, truncation=True)
-
-            data_sample = [{
-                "support_inputs": support_inputs,
-                "query_inputs": support_texts
-            }]
-
 
             output = model(support_inputs, support_texts)
             print(output)

@@ -82,8 +82,10 @@ class MatchingNetworkBERT(nn.Module):
             bert_model_name,
             output_hidden_states=True
         )
+
         # You can add more layers here if needed
         self.fc = nn.Linear(self.bert.config.hidden_size, self.bert.config.hidden_size) 
+        self.softmax = nn.Softmax(dim=1)
 
     def forward(self, support_set, query_set):
         # Embed support set using BERT
@@ -99,10 +101,10 @@ class MatchingNetworkBERT(nn.Module):
             # Calculate similarity between query and support embeddings
             similarity = torch.matmul(query_embeddings, support_embeddings.transpose(0, 1))
             sim_vec.append(similarity)
-            print(similarity)
-            # Softmax to get probabilities
-            probabilities = F.softmax(similarity, dim=len(sim_vec))
-            print(probabilities)
+ 
+        sim_vec_tensor = torch.tensor([sim_vec])
+        probabilities = self.softmax(sim_vec_tensor)
+        print(probabilities)      
 
         return probabilities
 
