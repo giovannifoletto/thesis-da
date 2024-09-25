@@ -38,6 +38,10 @@ labels = minmax_scale(labels)
 #finetune(labels, texts)
 fsclass(labels, texts)
 
+# Heavily based on:
+# https://mccormickml.com/2019/07/22/BERT-fine-tuning/
+
+# Helped by: https://medium.com/@ahmedmellit/text-similarity-implementation-using-bert-embedding-in-python-1efdb5194e65
 
 # This output will be the statistical representation of what the model thinks is the better label
 # to assign the log.

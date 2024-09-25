@@ -33,23 +33,31 @@ def fsclass(labels, texts):
     print("Import vocabulary")
     support_texts = []
     query_labels = dc(list(set(labels)))
-    query_text = []
     for ql in tqdm(query_labels):
         idx = np.where(labels == ql)[0]
         if len(idx) > 0:
             idx = idx[0].item()
         else:
             idx.item()
-        query_text.append(texts[idx])
+        t_query_text = tokenizer(texts[idx], return_tensors="pt", padding=True, truncation=True)
+        with torch.no_grad():
+            output = model.encode(t_query_text)
 
-    print("Tokenize vocabulary")
-    for text in tqdm(query_text):
-        t_query_text = tokenizer(text, return_tensors="pt", padding=True, truncation=True)
-        support_texts.append(t_query_text)
+        support_texts.append(output[0].numpy())
 
-    print(f"Vocabulary len: {len(query_text)}")
+    # This is very wrong => we have to do:
+    # - this array must go, a matrix has to come
+    # - the matrix should have on each colums one of the embeddings => 114x768    
 
-    print("Tranforming each line of the file in something compatible with our model.")
+    print(f"Vocabulary len: {len(support_texts)}")
+
+    # /home/giovannifoletto/Documents/programmazione/thesis-da/FSC/src/fsclass.py:54: UserWarning: Creating a tensor from a list of numpy.ndarrays is extremely slow. Please consider converting the list to a single numpy.ndarray with numpy.array() before converting to a tensor. (Triggered internally at ../torch/csrc/utils/tensor_new.cpp:278.)
+    # support_texts = torch.tensor(support_texts).to(device)
+    support_texts = torch.tensor(support_texts).to(device)
+
+    #embed()
+
+    print("Starting Matching networks.")
 
     outputs = []
     with open(CROSS_EVAL_DATASET) as ofile:
@@ -58,11 +66,12 @@ def fsclass(labels, texts):
         for line in tqdm(lines):
 
             support_inputs = tokenizer(line, return_tensors="pt", padding=True, truncation=True)
-            support_inputs.to(device)
 
-            output = model(support_inputs, support_texts, device)
+            with torch.no_grad():
+                support_inputs = model.encode(support_inputs).to(device)
+                output = model(support_inputs, support_texts)
             outputs.append(output)
 
-            print(output)
-    
-
+            print(output.max(), output.argmax())
+            output_label = labels[output.argmax()]
+            print(f"This model returned label: {output_label} with probability: {output.max()}")
