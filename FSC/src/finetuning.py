@@ -4,7 +4,7 @@ import torch.nn.functional as F
 from torch.optim import AdamW 
 from torch.utils.data import Dataset, DataLoader
 from transformers import BertForSequenceClassification, get_linear_schedule_with_warmup, DistilBertTokenizerFast, AutoTokenizer
-
+from sklearn.preprocessing import LabelEncoder
 import numpy as np
 
 from tqdm import tqdm
@@ -13,6 +13,7 @@ import datetime, time
 import random
 from math import ceil
 import os
+from pprint import pp
 
 from IPython import embed
 
@@ -25,6 +26,29 @@ from config import *
 # Number of epochs: 2, 3, 4
 
 def finetune(labels, texts):
+    # labels transformation
+    # Preprocessing on labels => normalize to finetune
+    #labels = minmax_scale(labels)
+
+    labels_numpy = np.array(list(set(labels))) # get only unique labels
+    n_labels = len(labels)
+
+    # Create a LabelEncoder to map the original Label to a int64 scalar value
+    le = LabelEncoder()
+    le.fit(labels_numpy)
+    le_name_mapping = dict(zip(le.classes_, le.transform(le.classes_)))
+    print("Mapping classses/labels")
+    pp(le_name_mapping)
+    print("====================")
+
+    classes = le.transform(le.classes_)
+    labels_t = torch.tensor(classes)
+    # labels_one_hot_encoded
+    labels_one_hot_encoded = F.one_hot(labels_t[None, :], num_classes=n_labels)  
+    # the labels[None, :] reshape the original numpy array
+    
+    embed()
+    
     tokenizer = AutoTokenizer.from_pretrained('bert-base-uncased')
     max_length = MAX_TOKEN_LEN
 
@@ -48,7 +72,8 @@ def finetune(labels, texts):
     # Torch datasets creations
     train_ds = FineTuningDataset(
         training_texts, 
-        training_lables, 
+        training_lables,
+        labels_one_hot_encoded, 
         tokenizer, 
         max_length
     )
@@ -60,7 +85,8 @@ def finetune(labels, texts):
 
     eval_ds = FineTuningDataset(
         eval_texts, 
-        eval_labels, 
+        eval_labels,
+        labels_one_hot_encoded,
         tokenizer, 
         max_length
     )

@@ -1,7 +1,3 @@
-from sklearn.preprocessing import minmax_scale, LabelEncoder
-import torch
-import numpy as np
-
 import json
 from tqdm import tqdm
 from copy import deepcopy as dc
@@ -35,25 +31,6 @@ with open(DATASET_WITH_LABEL) as text_file:
 # to check if there are enought labels with text (they have to
 # be the exact number)
 assert(len(texts) == len(labels))
-
-# Preprocessing on labels => normalize to finetune
-#labels = minmax_scale(labels)
-
-labels = np.array(list(set(labels))) # get only unique labels
-n_labels = len(labels)
-
-# Create a LabelEncoder to map the original Label to a int64 scalar value
-le = LabelEncoder()
-le.fit(labels)
-le_name_mapping = dict(zip(le.classes_, le.transform(le.classes_)))
-print("Mapping classses/labels")
-pp(le_name_mapping)
-print("====================")
-
-classes = le.transform(le.classes_)
-labels = torch.tensor(classes)
-labels = torch.nn.functional.one_hot(labels[None, :], num_classes=n_labels) 
-# the labels[None, :] reshape the original numpy array
 
 finetune(labels, texts)
 fsclass(labels, texts)
