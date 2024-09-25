@@ -20,9 +20,10 @@ BertConfig = DistilBertConfig(
 # # Combine the training inputs into a TensorDataset.
 # dataset = TensorDataset(input_ids, attention_masks, labels)
 class FineTuningDataset(Dataset):
-    def __init__(self, texts, labels, l_one_hot_encoded, tokenizer, max_length):
+    def __init__(self, texts, labels, l_mapping, l_one_hot_encoded, tokenizer, max_length):
         self.texts = texts
         self.labels = labels
+        self.l_mapping = l_mapping
         self.l_one_hot_encoded = l_one_hot_encoded
         self.tokenizer = tokenizer
         self.max_length = max_length
@@ -32,7 +33,12 @@ class FineTuningDataset(Dataset):
 
     def __getitem__(self, idx):
         text = self.texts[idx]
-        label = torch.tensor(self.labels[idx], dtype=torch.long)
+        # get label corresponding to the initial ds
+        orig_label = self.labels[idx]
+        # get mapped label
+        mapp_label = self.l_mapping[orig_label].item()
+        label = self.l_one_hot_encoded[mapp_label]
+
         encoding = self.tokenizer.encode_plus(
             text,
             add_special_tokens=True,

@@ -31,7 +31,7 @@ def finetune(labels, texts):
     #labels = minmax_scale(labels)
 
     labels_numpy = np.array(list(set(labels))) # get only unique labels
-    n_labels = len(labels)
+    n_labels = len(labels_numpy)
 
     # Create a LabelEncoder to map the original Label to a int64 scalar value
     le = LabelEncoder()
@@ -48,7 +48,7 @@ def finetune(labels, texts):
     # the labels[None, :] reshape the original numpy array
     
     embed()
-    
+
     tokenizer = AutoTokenizer.from_pretrained('bert-base-uncased')
     max_length = MAX_TOKEN_LEN
 
@@ -73,6 +73,7 @@ def finetune(labels, texts):
     train_ds = FineTuningDataset(
         training_texts, 
         training_lables,
+        le_name_mapping,
         labels_one_hot_encoded, 
         tokenizer, 
         max_length
@@ -86,6 +87,7 @@ def finetune(labels, texts):
     eval_ds = FineTuningDataset(
         eval_texts, 
         eval_labels,
+        le_name_mapping,
         labels_one_hot_encoded,
         tokenizer, 
         max_length
