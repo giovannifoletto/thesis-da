@@ -32,8 +32,8 @@ def fsclass(labels, texts):
     print("Starting Matching networks.")
 
     outputs = []
-    with open(CROSS_EVAL_DATASET) as ofile:
-        lines = ofile.readlines()[50000:]
+    with open(EVAL_DATASET) as ofile:
+        lines = ofile.readlines()
 
         for line in tqdm(lines):
 
