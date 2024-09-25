@@ -40,7 +40,7 @@ def finetune(labels, texts):
     print(f"lables_n: {labels_n}, texts_n: {texts_n}")
 
     training_lables = labels[:labels_n]
-    eval_labels = labels[(labels_n+1):len(labels)]
+    eval_labels = labels[(labels_n+1):]
 
     training_texts = texts[:texts_n]
     eval_texts = texts[(texts_n+1):len(texts)]
