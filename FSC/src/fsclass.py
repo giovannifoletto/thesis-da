@@ -33,7 +33,7 @@ def fsclass(labels, texts):
 
     outputs = []
     with open(CROSS_EVAL_DATASET) as ofile:
-        lines = ofile.readlines()
+        lines = ofile.readlines()[50000:]
 
         for line in tqdm(lines):
 
