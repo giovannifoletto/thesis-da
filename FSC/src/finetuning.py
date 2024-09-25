@@ -48,7 +48,7 @@ def finetune(labels, texts):
     labels_one_hot_encoded = labels_one_hot_encoded[0]
     # the labels[None, :] reshape the original numpy array
     
-    #embed()
+    embed()
 
     tokenizer = AutoTokenizer.from_pretrained('bert-base-uncased')
     max_length = MAX_TOKEN_LEN
