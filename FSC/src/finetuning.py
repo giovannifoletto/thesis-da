@@ -76,6 +76,7 @@ def finetune(labels, texts):
         num_labels = use_n_labels, # The number of output labels (multiclass classification) 
         output_attentions = False, # Whether the model returns attentions weights.
         output_hidden_states = False, # Whether the model returns all hidden-states.
+        problem_type = "multi_label_classification"
     )
 
     # Get all of the model's parameters as a list of tuples.
@@ -126,7 +127,7 @@ def finetune(labels, texts):
     total_t0 = time.time()
 
     # For each epoch...
-    for epoch_i in tqdm(range(0, epochs)):
+    for epoch_i in range(0, epochs):
 
         # ========================================
         #               Training
@@ -134,9 +135,9 @@ def finetune(labels, texts):
 
         # Perform one full pass over the training set.
 
-        # print("")
-        # print('======== Epoch {:} / {:} ========'.format(epoch_i + 1, epochs))
-        # print('Training...')
+        print("")
+        print('======== Epoch {:} / {:} ========'.format(epoch_i + 1, epochs))
+        print('Training...')
 
         # Measure how long the training epoch takes.
         t0 = time.time()
@@ -151,15 +152,15 @@ def finetune(labels, texts):
         model.train()
 
         # For each batch of training data...
-        for step, batch in enumerate(train_dl):
+        for step, batch in tqdm(enumerate(train_dl)):
 
-            # Progress update every 10 batches.
-            if step % 40 == 0 and not step == 0:
-                # Calculate elapsed time in minutes.
-                elapsed = format_time(time.time() - t0)
+            # # Progress update every 10 batches.
+            # if step % 40 == 0 and not step == 0:
+            #     # Calculate elapsed time in minutes.
+            #     elapsed = format_time(time.time() - t0)
 
-                # Report progress.
-                print('  Batch {:>5,}  of  {:>5,}.    Elapsed: {:}.'.format(step, len(train_dl), elapsed))
+            #     # Report progress.
+            #     print('  Batch {:>5,}  of  {:>5,}.    Elapsed: {:}.'.format(step, len(train_dl), elapsed))
 
             # Unpack this training batch from our dataloader. 
             #
@@ -167,11 +168,6 @@ def finetune(labels, texts):
             # `to` method.
             #
             # `batch` contains three pytorch tensors:
-            #   [0]: input ids 
-            #   [1]: attention masks
-            #   [2]: labels 
-
-            # My dataset
             # 'input_ids': encoding['input_ids'].flatten(),
             # 'attention_mask': encoding['attention_mask'].flatten(),
             # 'labels': label
@@ -276,10 +272,12 @@ def finetune(labels, texts):
                 # https://huggingface.co/transformers/v2.2.0/model_doc/bert.html#transformers.BertForSequenceClassification
                 # Get the "logits" output by the model. The "logits" are the output
                 # values prior to applying an activation function like the softmax.
-                output = model(b_input_ids, 
-                                       token_type_ids=None, 
-                                       attention_mask=b_input_mask,
-                                       labels=b_labels)
+                output = model(
+                    b_input_ids, 
+                    token_type_ids=None, 
+                    attention_mask=b_input_mask,
+                    labels=b_labels
+                )
 
             # Accumulate the validation loss.
             total_eval_loss += output.loss

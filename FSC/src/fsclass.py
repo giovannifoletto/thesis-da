@@ -43,8 +43,13 @@ def fsclass(labels, texts):
             with torch.no_grad():
                 logits = model(**support_inputs).logits
             
-            predicted_class_id = logits.argmax().item()
-            print(model.config.id2label[predicted_class_id])      
+            predicted_class_ids = torch.arange(0, logits.shape[-1])[torch.sigmoid(logits).squeeze(dim=0) > 0.5]
+            num_labels = len(model.config.id2label)
+
+            counter = 1
+            for pci in predicted_class_ids:
+                print(f"Prediction {counter}: {pci} over #{num_labels} num of labels")
+            #print(model.config.id2label[predicted_class_id])      
 
 
             # embed()
