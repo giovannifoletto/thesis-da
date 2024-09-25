@@ -41,6 +41,7 @@ def fsclass(labels, texts):
             idx.item()
         t_query_text = tokenizer(texts[idx], return_tensors="pt", padding=True, truncation=True)
         with torch.no_grad():
+            t_query_text.to(device)
             output = model.encode(t_query_text)
 
         support_texts.append(output[0].numpy())
