@@ -53,9 +53,9 @@ def fsclass(labels, texts):
     print(f"Vocabulary len: {len(support_texts)}")
 
     # /home/giovannifoletto/Documents/programmazione/thesis-da/FSC/src/fsclass.py:54: UserWarning: Creating a tensor from a list of numpy.ndarrays is extremely slow. Please consider converting the list to a single numpy.ndarray with numpy.array() before converting to a tensor. (Triggered internally at ../torch/csrc/utils/tensor_new.cpp:278.)
-    # support_texts = torch.tensor(support_texts).to(device)
+    # support_texts = torch.tensor(support_texts).to(device) 
+    # There is not a simple solution for that: np.ndarray has maximum of 64x64, we need at least 1x144.
 
-    support_texts = np.ndarray(support_texts)
     support_texts = torch.tensor(support_texts)
     support_texts.to(device)
 
