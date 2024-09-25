@@ -52,6 +52,8 @@ class FineTuningDataset(Dataset):
             return_tensors='pt', # return pytorch tensors
         )
 
+        embed()
+        
         return {
             'input_ids': encoding['input_ids'].flatten(),
             'attention_mask': encoding['attention_mask'].flatten(),
