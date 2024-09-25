@@ -44,10 +44,11 @@ def finetune(labels, texts):
     classes = le.transform(le.classes_)
     labels_t = torch.tensor(classes)
     # labels_one_hot_encoded
-    labels_one_hot_encoded = F.one_hot(labels_t[None, :], num_classes=n_labels)  
+    labels_one_hot_encoded = F.one_hot(labels_t[None, :], num_classes=n_labels)
+    labels_one_hot_encoded = labels_one_hot_encoded[0]
     # the labels[None, :] reshape the original numpy array
     
-    embed()
+    #embed()
 
     tokenizer = AutoTokenizer.from_pretrained('bert-base-uncased')
     max_length = MAX_TOKEN_LEN
