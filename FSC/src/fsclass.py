@@ -56,6 +56,7 @@ def fsclass(labels, texts):
     # support_texts = torch.tensor(support_texts).to(device) 
     # There is not a simple solution for that: np.ndarray has maximum of 64x64, we need at least 1x144.
 
+    support_texts = dc(np.array(support_texts))
     support_texts = torch.tensor(support_texts)
     support_texts.to(device)
 
@@ -70,9 +71,11 @@ def fsclass(labels, texts):
         for line in tqdm(lines):
 
             support_inputs = tokenizer(line, return_tensors="pt", padding=True, truncation=True)
-            support_inputs.to(device)
 
+
+            embed()
             with torch.no_grad():
+                support_inputs.to(device)
                 support_inputs = model.encode(support_inputs)
                 support_inputs.to(device)
                 output = model(support_inputs, support_texts)
