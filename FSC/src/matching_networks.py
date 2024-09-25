@@ -11,6 +11,8 @@ from config import *
 from finetuning import finetune
 from fsclass import fsclass
 
+from pprint import pp
+
 # Giovanni Foletto
 # First phase: finetuning with the labeled dataset
 # Second phase: few-shot classification
@@ -45,14 +47,13 @@ le = LabelEncoder()
 le.fit(labels)
 le_name_mapping = dict(zip(le.classes_, le.transform(le.classes_)))
 print("Mapping classses/labels")
-print(le_name_mapping)
+pp(le_name_mapping)
 print("====================")
 
 classes = le.transform(le.classes_)
 labels = torch.tensor(classes)
 labels = torch.nn.functional.one_hot(labels[None, :], num_classes=n_labels) 
 # the labels[None, :] reshape the original numpy array
-
 
 finetune(labels, texts)
 fsclass(labels, texts)
