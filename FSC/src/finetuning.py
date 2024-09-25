@@ -151,6 +151,8 @@ def finetune(labels, texts):
         # vs. test (source: https://stackoverflow.com/questions/51433378/what-does-model-train-do-in-pytorch)
         model.train()
 
+        embed()
+
         # For each batch of training data...
         for step, batch in tqdm(enumerate(train_dl)):
 
